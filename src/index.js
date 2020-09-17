@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+//boostrap folder located in node_modules/bootstrap/....
+import 'bootstrap/dist/css/bootstrap.min.css';
+//index.css will override any conflicts styling it has with bootstrap by listing it after
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
