@@ -15,10 +15,6 @@ class Menu extends Component {
         console.log("ComponentDidMount is invoked");
     }
 
-    onDishSelect(dish) {
-        this.setState({selectedDish: dish});
-    }
-
 
     //all class componets need to implement render () method
     //want to display list of dishes
