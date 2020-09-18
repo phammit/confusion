@@ -1,41 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
 
-
-//class vs function component
-class Menu extends Component {
-    //all class components need to call super
-    constructor(props) {
-        super(props);
-
-        console.log("Menu Components constructor is invoked");
+    //since we know the parameters being passes, just use their names
+    //do need to enclose in { } if we are extracting them from props here
+    function RenderMenuItem({dish, onClick}) {
+        return(
+            <Card onClick={() => onClick(dish.id)}>                      
+                <CardImg width="100%" src={dish.image} alt={dish.name} />
+                <CardImgOverlay>
+                    <CardTitle heading>{dish.name}</CardTitle>
+                </CardImgOverlay>
+            </Card>
+        );
     }
 
-    componentDidMount() {
-        console.log("ComponentDidMount is invoked");
-    }
-
-
-    //all class componets need to implement render () method
-    //want to display list of dishes
-    //Media component from 'reactstrap'
-    render() {
-
-        const menu = this.props.dishes.map((dish) => {
+    //another way to implement a functional component
+    const Menu = (props) => {
+        const menu = props.dishes.map((dish) => {
             return (
                 <div key={dish.id} className="col-12 col-md-5 m-1">
-                    <Card onClick={() => this.props.onClick(dish.id)}>                      
-                        <CardImg width="100%" src={dish.image} alt={dish.name} />
-                        <CardImgOverlay>
-                            <CardTitle heading>{dish.name}</CardTitle>
-                        </CardImgOverlay>
-                    </Card>
+                    <RenderMenuItem dish={dish} onClick={props.onClick}/>
                 </div>
             );
         });
-
-        console.log("Menu Components render is invoked");
-
+    
         return ( 
             <div className="container">
                 <div className="row">
@@ -45,6 +33,6 @@ class Menu extends Component {
         );
     }
 
-}
+
 
 export default Menu;
