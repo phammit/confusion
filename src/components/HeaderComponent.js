@@ -1,14 +1,62 @@
 import React, {Component} from 'react';
-import {Navbar, NavbarBrand, Jumbotron} from 'reactstrap';
+import { Navbar, NavbarBrand, Nav, Collapse, NavItem, Jumbotron, NavbarToggler} from 'reactstrap';
+import { NavLink } from 'react-router-dom';
 
 //use react fragment to mix up/group together react components.. no need to add extra div
 class Header extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state= {
+            isNavOpen: false
+        };
+        //binding our javascript toogleNav functionto ?? another way of doing this is with arrow function
+        this.toggleNav = this.toggleNav.bind(this);
+    }
+
+    //need to bind b/c onclick that calls this will lose context of this.setState
+    //will try to get window.setState
+    toggleNav() {
+        this.setState({
+            isNavOpen: !this.state.isNavOpen
+        });
+    }
+
+
     render() {
         return (
             <React.Fragment>
-            <Navbar dark >
+            <Navbar dark expand="md">
                     <div className="container">
-                        <NavbarBrand href="/">Ristorant Con Fusion</NavbarBrand>
+                        <NavbarToggler onClick={this.toggleNav} />
+                        <NavbarBrand className="mr-auto" href="/">
+                            <img src="assets/images/logo.png" height="30" width="41"
+                                alt="Resotrante Con Fusion" />
+                        </NavbarBrand>
+                        <Collapse isOpen={this.state.isNavOpen} navbar>
+                            <Nav navbar>    
+                                <NavItem>
+                                    <NavLink className="nav-link" to="/home">
+                                    <span className="fa fa-home fa-lg"></span>Home 
+                                    </NavLink>
+                                </NavItem>   
+                                <NavItem>
+                                    <NavLink className="nav-link" to='/aboutus'>
+                                        <span className="fa fa-info fa-lg"></span> About Us
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem>
+                                        <NavLink className="nav-link"  to='/menu'>
+                                            <span className="fa fa-list fa-lg"></span> Menu
+                                        </NavLink>
+                                </NavItem>
+                                <NavItem>
+                                        <NavLink className="nav-link" to='/contactus'>
+                                            <span className="fa fa-address-card fa-lg"></span> Contact Us
+                                        </NavLink>
+                                </NavItem>                         
+                            </Nav>
+                            </Collapse>
                     </div>
              </Navbar>
              <Jumbotron>
